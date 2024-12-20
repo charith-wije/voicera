@@ -7,6 +7,7 @@ import CallsScreen from '../components/screens/CallsScreen';
 import ChatsScreen from '../components/screens/ChatsScreen';
 import CallingScreen from '../components/screens/CallingScreen';
 import IncomingCallScreen from '../components/screens/IncomingCallScreen';
+import CallScreen from '../components/screens/CallScreen';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 const BottomTab = createBottomTabNavigator();
@@ -39,13 +40,13 @@ const HomeNavigator = () => {
           },
           tabBarActiveTintColor: '#efb810',
           tabBarInactiveTintColor: 'white',
-          tabBarStyle: {backgroundColor: '#011f8c'},
+          tabBarStyle: {backgroundColor: '#333333'},
           headerTitleAlign: 'center',
         })}>
         <BottomTab.Screen name="Members" component={MembersScreen} />
         <BottomTab.Screen
           name="Calls"
-          component={IncomingCallScreen}
+          component={CallScreen}
           options={{
             headerShown: false,
           }}
