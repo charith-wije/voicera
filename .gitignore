@@ -64,3 +64,7 @@ yarn-error.log
 
 # testing
 /coverage
+
+# Ignore specific config file
+/src/config/config.js
+/src/config/firebase.js

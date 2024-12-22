@@ -1,31 +1,50 @@
 import {StyleSheet, Text, View, Pressable} from 'react-native';
-import React, {useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import {AgoraContext} from '../../helpers/AgoraContext';
 
-const CallActionBox = () => {
+const CallActionBox = ({leaveCall, callType}) => {
+  const {switchCamera, onOffCamera, onOffMicrophone} = useContext(AgoraContext);
+
   const [isCameraOn, setIsCameraOn] = useState(true);
   const [isMicrophoneOn, setIsMicrophoneOn] = useState(true);
 
-  const onReverseCamera = () => {};
+  useEffect(() => {
+    if (callType == 'video') onOffCamera(isCameraOn);
+  }, [isCameraOn]);
+
+  useEffect(() => {
+    onOffMicrophone(isMicrophoneOn);
+  }, [isMicrophoneOn]);
+
+  const onReverseCamera = () => {
+    if (callType == 'video') switchCamera();
+  };
 
   const onToggleCamera = () => {
-    setIsCameraOn(currentValue => !currentValue);
+    if (callType == 'video') setIsCameraOn(currentValue => !currentValue);
   };
 
   const onToggleMicrophone = () => {
     setIsMicrophoneOn(currentValue => !currentValue);
   };
 
-  const onHangup = () => {};
+  const onHangup = () => {
+    leaveCall();
+  };
 
   return (
     <View style={styles.buttonsContainer}>
-      <Pressable onPress={onReverseCamera} style={styles.iconButton}>
+      <Pressable
+        onPress={onReverseCamera}
+        style={[styles.iconButton, {opacity: callType === 'video' ? 1 : 0.5}]}>
         <Ionicons name="camera-reverse" size={38} color={'white'} />
       </Pressable>
 
-      <Pressable onPress={onToggleCamera} style={styles.iconButton}>
+      <Pressable
+        onPress={onToggleCamera}
+        style={[styles.iconButton, {opacity: callType === 'video' ? 1 : 0.5}]}>
         <MaterialIcons
           name={isCameraOn ? 'camera' : 'camera-off'}
           size={38}

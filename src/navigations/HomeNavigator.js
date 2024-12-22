@@ -1,6 +1,5 @@
 import {View, Text} from 'react-native';
-import React from 'react';
-import {NavigationContainer} from '@react-navigation/native';
+import React, {useContext, useEffect, useState} from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import MembersScreen from '../components/screens/MembersScreen';
 import CallsScreen from '../components/screens/CallsScreen';
@@ -9,6 +8,9 @@ import CallingScreen from '../components/screens/CallingScreen';
 import IncomingCallScreen from '../components/screens/IncomingCallScreen';
 import CallScreen from '../components/screens/CallScreen';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import CallModal from '../components/organism/CallModal';
+import {useDispatch} from 'react-redux';
+import {updateCallType} from '../redux/reducers/CallModalReducer';
 
 const BottomTab = createBottomTabNavigator();
 
@@ -18,8 +20,19 @@ const callsName = 'Calls';
 const chatsName = 'Chats';
 
 const HomeNavigator = () => {
+  const [isCallModalVisible, setCallModalVisible] = useState(false);
+  const [callee, setCallee] = useState('');
+
+  const dispatch = useDispatch();
+
+  const openCallModal = call => {
+    setCallModalVisible(true);
+    dispatch(updateCallType(call));
+  };
+  const closeCallModal = () => setCallModalVisible(false);
+
   return (
-    <NavigationContainer>
+    <>
       <BottomTab.Navigator
         initialRouteName={membersName}
         screenOptions={({route}) => ({
@@ -43,17 +56,33 @@ const HomeNavigator = () => {
           tabBarStyle: {backgroundColor: '#333333'},
           headerTitleAlign: 'center',
         })}>
-        <BottomTab.Screen name="Members" component={MembersScreen} />
+        <BottomTab.Screen name="Members">
+          {() => (
+            <MembersScreen
+              openCallModal={openCallModal}
+              setCallee={setCallee}
+            />
+          )}
+        </BottomTab.Screen>
+
         <BottomTab.Screen
           name="Calls"
-          component={CallScreen}
           options={{
             headerShown: false,
-          }}
-        />
-        <BottomTab.Screen name="Chats" component={ChatsScreen} />
+          }}>
+          {() => <CallsScreen openCallModal={openCallModal} />}
+        </BottomTab.Screen>
+
+        <BottomTab.Screen name="Chats">
+          {() => <ChatsScreen openCallModal={openCallModal} />}
+        </BottomTab.Screen>
       </BottomTab.Navigator>
-    </NavigationContainer>
+      <CallModal
+        visible={isCallModalVisible}
+        onClose={closeCallModal}
+        callee={callee}
+      />
+    </>
   );
 };
 

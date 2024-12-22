@@ -1,7 +1,10 @@
 import {StyleSheet, Text, View} from 'react-native';
-import React from 'react';
+import React, {useEffect} from 'react';
 
-const ChatsScreen = () => {
+const ChatsScreen = ({openCallModal}) => {
+  useEffect(() => {
+    openCallModal(true);
+  }, []);
   return (
     <View>
       <Text>ChatsScreen</Text>
