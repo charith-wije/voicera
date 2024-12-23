@@ -18,12 +18,13 @@ import {useNavigation} from '@react-navigation/native';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import FormInputVoicera from '../../molecules/FormInputVoicera';
 import SubmitButtonVoicera from '../../molecules/SubmitButtonVoicera';
+// import {AuthCredential, createUserWithEmailAndPassword, updateProfile} from 'firebase/auth';
+// import firestore from '@react-native-firebase/firestore';
+// import {auth} from '../../../config/firebase';
+import auth from '@react-native-firebase/auth';
 
 const userInfo = {
-  firstName: '',
-  lastName: '',
-  dateOfBirth: '',
-  mobileNumber: '',
+  userName: '',
   email: '',
   password: '',
   confirmPassword: '',
@@ -31,17 +32,12 @@ const userInfo = {
 
 const SignUpScreen = () => {
   const navigation = useNavigation();
+
   const validationSchema = Yup.object({
-    firstName: Yup.string()
+    userName: Yup.string()
       .trim()
       .min(3, 'Invalid name')
-      .required('First name is required!'),
-    lastName: Yup.string()
-      .trim()
-      .min(3, 'Invalid name')
-      .required('Last name is required!'),
-    dateOfBirth: Yup.string().required('Date of birth is required'),
-    mobileNumber: Yup.string().min(10).required('Mobile number is required'),
+      .required('User name is required!'),
     email: Yup.string()
       .trim()
       .email('Invalid email!')
@@ -55,7 +51,16 @@ const SignUpScreen = () => {
       .required('Confirm password is required!'),
   });
 
-  const handleRegister = async values => {};
+  const handleRegister = async values => {
+    auth()
+      .createUserWithEmailAndPassword('test@gmail.com', 'Password')
+      .then(() => {
+        Alert.alert('User created');
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
 
   return (
     <KeyboardAwareScrollView
@@ -127,25 +132,17 @@ const SignUpScreen = () => {
                 handleBlur,
                 handleSubmit,
               }) => {
-                const {
-                  firstName,
-                  lastName,
-                  dateOfBirth,
-                  mobileNumber,
-                  email,
-                  password,
-                  confirmPassword,
-                } = values;
+                const {userName, email, password, confirmPassword} = values;
                 return (
                   <>
                     <FormInputVoicera
-                      value={firstName}
+                      value={userName}
                       placeholder="User Name"
                       placeholderTextColor="grey"
-                      label="First Name"
-                      onBlur={handleBlur('firstName')}
-                      error={touched.firstName && errors.firstName}
-                      onChangeText={handleChange('firstName')}
+                      label="User Name"
+                      onBlur={handleBlur('userName')}
+                      error={touched.userName && errors.userName}
+                      onChangeText={handleChange('userName')}
                       color={'black'}
                     />
 

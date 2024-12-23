@@ -9,7 +9,7 @@ const App = () => {
   return (
     <AgoraProvider>
       <NavigationContainer>
-        {/* <HomeNavigator /> */}
+        {/* {user && <HomeNavigator />} */}
         <AuthNavigator />
       </NavigationContainer>
     </AgoraProvider>
