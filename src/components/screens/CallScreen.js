@@ -1,13 +1,14 @@
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet} from 'react-native';
 import React from 'react';
 import CallActionBox from '../organism/CallActionBox';
+import ViewVoicera from '../atoms/ViewVoicera';
 
 const CallScreen = () => {
   return (
-    <View style={styles.page}>
-      <View style={styles.cameraPreview}></View>
+    <ViewVoicera style={styles.page}>
+      <ViewVoicera style={styles.cameraPreview}></ViewVoicera>
       <CallActionBox />
-    </View>
+    </ViewVoicera>
   );
 };
 

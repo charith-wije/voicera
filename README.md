@@ -1,79 +1,116 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# React Native App with Agora.io and Firebase
 
-# Getting Started
+## Overview
 
->**Note**: Make sure you have completed the [React Native - Environment Setup](https://reactnative.dev/docs/environment-setup) instructions till "Creating a new application" step, before proceeding.
+This project is a feature-rich mobile application built using React Native. It integrates Agora.io for video and voice calls and Firebase for authentication, real-time chat, and Google login. The app provides a seamless communication experience for users with both messaging and calling features.
 
-## Step 1: Start the Metro Server
+## Features
 
-First, you will need to start **Metro**, the JavaScript _bundler_ that ships _with_ React Native.
+### Video and Voice Calls
 
-To start Metro, run the following command from the _root_ of your React Native project:
+Agora.io SDK is used for high-quality, real-time video and voice calls.
 
-```bash
-# using npm
+### Authentication
+
+Firebase Authentication supports:
+
+- Email and password-based sign-up and login.
+
+- Google login integration.
+
+### Real-time Chat
+
+- Firebase Realtime Database enables instant messaging between users.
+
+## Prerequisites
+
+- Node.js (>= 14.x recommended)
+- npm or yarn
+- Firebase and Agora.io accounts with configured projects
+
+## Installation
+
+#### 1. Clone the repository:
+
+```
+git clone <repository-url>
+cd <repository-folder>
+```
+
+#### 2. Install dependencies:
+
+```
+npm install
+```
+
+#### 3. Setup Firebase:
+
+- Create a Firebase project at Firebase Console.
+- Download the google-services.json file (for Android) or GoogleService-Info.plist (for iOS).
+- Place these files in the appropriate directories of your React Native project.
+
+#### 4. Setup Agora.io:
+
+- Sign up at Agora.io and create a new project.
+- Note the App ID from the Agora project dashboard.
+- Update the Agora App ID in your code.
+
+#### 5. Environment Variables:
+
+Create an config.js file in the requesting directory with the following variables:
+
+```
+VOICERA_APP_ID = <your-agora-app-id>
+FIREBASE_API_KEY=<your-firebase-api-key>
+VOICERA_CHANNEL_NAME=<your-agora.io channel name>
+VOICERA_UID=<agora user id>
+FIREBASE_PROJECT_ID=<your-firebase-project-id>
+FIREBASE_APP_ID=<your-firebase-app-id>
+```
+
+#### 6. Run the app:
+
+- For Android:
+
+```
 npm start
-
-# OR using Yarn
-yarn start
 ```
 
-## Step 2: Start your Application
+Open another terminal and run
 
-Let Metro Bundler run in its _own_ terminal. Open a _new_ terminal from the _root_ of your React Native project. Run the following command to start your _Android_ or _iOS_ app:
-
-### For Android
-
-```bash
-# using npm
+```
 npm run android
-
-# OR using Yarn
-yarn android
 ```
 
-### For iOS
+## Usage
 
-```bash
-# using npm
-npm run ios
+### Authentication
 
-# OR using Yarn
-yarn ios
-```
+- Users can sign up with an email and password or log in using Google.
+- Authenticated users gain access to the chat and calling features.
 
-If everything is set up _correctly_, you should see your new app running in your _Android Emulator_ or _iOS Simulator_ shortly provided you have set up your emulator/simulator correctly.
+### Real-time Chat
 
-This is one way to run your app — you can also run it directly from within Android Studio and Xcode respectively.
+- Navigate to the chat screen to start a conversation with other users.
+- Messages are synchronized instantly using Firebase Realtime Database.
 
-## Step 3: Modifying your App
+### Video and Voice Calls
 
-Now that you have successfully run the app, let's modify it.
+- Initiate a call from the contacts or chat screen.
+- Use Agora’s built-in features for muting, camera switching, and more.
 
-1. Open `App.tsx` in your text editor of choice and edit some lines.
-2. For **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Developer Menu** (<kbd>Ctrl</kbd> + <kbd>M</kbd> (on Window and Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (on macOS)) to see your changes!
+## Technologies Used
 
-   For **iOS**: Hit <kbd>Cmd ⌘</kbd> + <kbd>R</kbd> in your iOS Simulator to reload the app and see your changes!
+### Frontend:
 
-## Congratulations! :tada:
+- React Native
+- React Navigation
 
-You've successfully run and modified your React Native App. :partying_face:
+### Backend:
 
-### Now what?
+- Firebase Realtime Database
 
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [Introduction to React Native](https://reactnative.dev/docs/getting-started).
+### APIs and SDKs:
 
-# Troubleshooting
-
-If you can't get this to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
-
-# Learn More
-
-To learn more about React Native, take a look at the following resources:
-
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+- Firebase Authentication
+- Agora.io SDK

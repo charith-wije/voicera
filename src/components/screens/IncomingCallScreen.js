@@ -1,6 +1,8 @@
-import {Image, StyleSheet, Text, View, Pressable} from 'react-native';
+import {StyleSheet, Pressable} from 'react-native';
 import React from 'react';
 import Feather from 'react-native-vector-icons/Feather';
+import ViewVoicera from '../atoms/ViewVoicera';
+import TextVoicera from '../atoms/TextVoicera';
 
 const IncomingCallScreen = () => {
   const onDecline = () => {
@@ -12,29 +14,29 @@ const IncomingCallScreen = () => {
   };
 
   return (
-    <View style={styles.root}>
-      <Text style={styles.name}>Alex</Text>
-      <Text style={styles.phoneNumber}>Voicera Video...</Text>
+    <ViewVoicera style={styles.root}>
+      <TextVoicera style={styles.name}>Alex</TextVoicera>
+      <TextVoicera style={styles.phoneNumber}>Voicera Video...</TextVoicera>
 
-      <View style={[styles.row, {marginTop: 'auto'}]}>
+      <ViewVoicera style={[styles.row, {marginTop: 'auto'}]}>
         {/* Decline Button*/}
         <Pressable onPress={onDecline} style={styles.iconContainer}>
-          <View style={styles.iconButtonContainer}>
+          <ViewVoicera style={styles.iconButtonContainer}>
             <Feather name="x" size={40} color={'white'} />
-          </View>
-          <Text style={styles.iconText}>Decline</Text>
+          </ViewVoicera>
+          <TextVoicera style={styles.iconText}>Decline</TextVoicera>
         </Pressable>
 
         {/* Accept Button*/}
         <Pressable onPress={onAccept} style={styles.iconContainer}>
-          <View
+          <ViewVoicera
             style={[styles.iconButtonContainer, {backgroundColor: '#2e7bff'}]}>
             <Feather name="check" size={40} color={'white'} />
-          </View>
-          <Text style={styles.iconText}>Accept</Text>
+          </ViewVoicera>
+          <TextVoicera style={styles.iconText}>Accept</TextVoicera>
         </Pressable>
-      </View>
-    </View>
+      </ViewVoicera>
+    </ViewVoicera>
   );
 };
 

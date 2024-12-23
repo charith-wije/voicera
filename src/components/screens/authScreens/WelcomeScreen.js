@@ -1,72 +1,99 @@
-import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import React, {useEffect} from 'react';
+import {Image, StyleSheet, TouchableOpacity} from 'react-native';
+import React from 'react';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {useNavigation} from '@react-navigation/native';
+import ViewVoicera from '../../atoms/ViewVoicera';
+import TextVoicera from '../../atoms/TextVoicera';
 
 const WelcomeScreen = () => {
   const navigation = useNavigation();
 
   return (
-    <SafeAreaView style={{flex: 1, backgroundColor: 'blue'}}>
-      <View
-        style={{flex: 1, justifyContent: 'space-around', marginVertical: 26}}>
-        <Text
-          style={{
-            color: 'white',
-            fontWeight: 'bold',
-            fontSize: 30,
-            textAlign: 'center',
-          }}>
+    <SafeAreaView style={styles.mainContainer}>
+      <ViewVoicera style={styles.mainSubContainer}>
+        <TextVoicera style={styles.letsGetStartedText}>
           Let's Get Started!
-        </Text>
-        <View
-          style={{
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}>
+        </TextVoicera>
+        <ViewVoicera style={styles.welcomeImageView}>
           <Image
             source={require('../../../assets/images/call_image.png')}
-            style={{width: '100%', height: 350, resizeMode: 'contain'}}
+            style={styles.welcomeImage}
           />
-        </View>
-        <View style={{justifyContent: 'space-between'}}>
+        </ViewVoicera>
+        <ViewVoicera style={styles.buttonContainer}>
           <TouchableOpacity
-            style={{
-              paddingVertical: 16,
-              backgroundColor: '#f5cd05',
-              marginHorizontal: 24,
-              borderRadius: 10,
-            }}
+            style={styles.signUpButton}
             onPress={() => navigation.navigate('Signup')}>
-            <Text
-              style={{
-                fontSize: 20,
-                fontWeight: 'bold',
-                textAlign: 'center',
-                color: '#4a4a49',
-              }}>
-              Sign Up
-            </Text>
+            <TextVoicera style={styles.signUpText}>Sign Up</TextVoicera>
           </TouchableOpacity>
-          <View
-            style={{
-              justifyContent: 'center',
-              flexDirection: 'row',
-              marginTop: 10,
-            }}>
-            <Text style={{color: 'white', fontWeight: '700', marginRight: 5}}>
+          <ViewVoicera style={styles.alreadyHaveAccountView}>
+            <TextVoicera style={styles.alreadyHaveAccountText}>
               Already have an account?
-            </Text>
+            </TextVoicera>
             <TouchableOpacity onPress={() => navigation.navigate('Signin')}>
-              <Text style={{color: '#f5cd05', fontWeight: '700'}}>Log In</Text>
+              <TextVoicera style={styles.loginText}>Log In</TextVoicera>
             </TouchableOpacity>
-          </View>
-        </View>
-      </View>
+          </ViewVoicera>
+        </ViewVoicera>
+      </ViewVoicera>
     </SafeAreaView>
   );
 };
 
 export default WelcomeScreen;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  mainContainer: {
+    flex: 1,
+    backgroundColor: 'blue',
+  },
+  mainSubContainer: {
+    flex: 1,
+    justifyContent: 'space-around',
+    marginVertical: 26,
+  },
+  letsGetStartedText: {
+    color: 'white',
+    fontWeight: 'bold',
+    fontSize: 30,
+    textAlign: 'center',
+  },
+  welcomeImageView: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  welcomeImage: {
+    width: '100%',
+    height: 350,
+    resizeMode: 'contain',
+  },
+  buttonContainer: {
+    justifyContent: 'space-between',
+  },
+  signUpButton: {
+    paddingVertical: 16,
+    backgroundColor: '#f5cd05',
+    marginHorizontal: 24,
+    borderRadius: 10,
+  },
+  signUpText: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    color: '#4a4a49',
+  },
+  alreadyHaveAccountView: {
+    justifyContent: 'center',
+    flexDirection: 'row',
+    marginTop: 10,
+  },
+  alreadyHaveAccountText: {
+    color: 'white',
+    fontWeight: '700',
+    marginRight: 5,
+  },
+  loginText: {
+    color: '#f5cd05',
+    fontWeight: '700',
+  },
+});

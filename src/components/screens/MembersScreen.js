@@ -1,20 +1,11 @@
-import {
-  StyleSheet,
-  Text,
-  View,
-  FlatList,
-  SafeAreaView,
-  StatusBar,
-  TextInput,
-  PermissionsAndroid,
-  Platform,
-  Switch,
-  ScrollView,
-} from 'react-native';
+import {StyleSheet, FlatList, SafeAreaView, StatusBar} from 'react-native';
 
 import React, {useEffect, useState, useContext} from 'react';
 
 import {AgoraContext} from '../../helpers/AgoraContext';
+import ViewVoicera from '../atoms/ViewVoicera';
+import TextInputVoicera from '../atoms/TextInputVoicera';
+import TextVoicera from '../atoms/TextVoicera';
 
 const members = [
   {
@@ -68,8 +59,8 @@ const MembersScreen = ({openCallModal, setCallee}) => {
   return (
     <SafeAreaView>
       <StatusBar barStyle={'dark-content'} />
-      <View style={styles.page}>
-        <TextInput
+      <ViewVoicera style={styles.page}>
+        <TextInputVoicera
           placeholder="Search..."
           placeholderTextColor="#696666"
           onChangeText={setSearchTerm}
@@ -79,7 +70,7 @@ const MembersScreen = ({openCallModal, setCallee}) => {
         <FlatList
           data={filteredMembers}
           renderItem={({item}) => (
-            <Text
+            <TextVoicera
               onPress={() => {
                 openCallModal(`audio`);
                 setCallee(item.user_name);
@@ -87,11 +78,13 @@ const MembersScreen = ({openCallModal, setCallee}) => {
               }}
               style={styles.memberName}>
               {item.user_name}
-            </Text>
+            </TextVoicera>
           )}
-          ItemSeparatorComponent={() => <View style={styles.separator} />}
+          ItemSeparatorComponent={() => (
+            <ViewVoicera style={styles.separator} />
+          )}
         />
-      </View>
+      </ViewVoicera>
     </SafeAreaView>
   );
 };

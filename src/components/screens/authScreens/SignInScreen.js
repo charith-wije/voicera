@@ -1,13 +1,9 @@
 import React from 'react';
 import {
-  Alert,
   Image,
   KeyboardAvoidingView,
   StyleSheet,
-  Text,
-  TextInput,
   TouchableOpacity,
-  View,
 } from 'react-native';
 import {Formik} from 'formik';
 import * as Yup from 'yup';
@@ -18,6 +14,8 @@ import {useNavigation} from '@react-navigation/native';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import SubmitButtonVoicera from '../../molecules/SubmitButtonVoicera';
 import FormInputVoicera from '../../molecules/FormInputVoicera';
+import ViewVoicera from '../../atoms/ViewVoicera';
+import TextVoicera from '../../atoms/TextVoicera';
 
 const loginDetails = {
   email: '',
@@ -42,53 +40,27 @@ const SignInScreen = () => {
 
   return (
     <KeyboardAwareScrollView
-      contentContainerStyle={{
-        flexGrow: 1,
-        justifyContent: 'flex-start',
-      }}
+      contentContainerStyle={styles.keyboardAwareScrollViewContainer}
       enableOnAndroid={true}
       extraScrollHeight={20}
       keyboardShouldPersistTaps="handled">
-      <View style={{flex: 1, backgroundColor: 'blue'}}>
-        <SafeAreaView style={{flex: 2, backgroundColor: 'blue'}}>
-          <View
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'flex-start',
-              marginTop: 10,
-            }}>
+      <ViewVoicera style={styles.mainContainer}>
+        <SafeAreaView style={styles.safeAreaViewContainer}>
+          <ViewVoicera style={styles.backButtonContainer}>
             <TouchableOpacity
               onPress={() => navigation.goBack()}
-              style={{
-                backgroundColor: '#f5cd05',
-                padding: 8,
-                borderBottomLeftRadius: 10,
-                borderTopRightRadius: 10,
-                marginLeft: 10,
-              }}>
+              style={styles.backButtonSubContainer}>
               <Ionicons name="arrow-back-outline" size={24} color="black" />
             </TouchableOpacity>
-          </View>
-          <View
-            style={{
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}>
+          </ViewVoicera>
+          <ViewVoicera style={styles.imageView}>
             <Image
               source={require('../../../assets/images/call_image.png')}
-              style={{width: '90%', height: 220, resizeMode: 'contain'}}
+              style={styles.image}
             />
-          </View>
+          </ViewVoicera>
         </SafeAreaView>
-        <KeyboardAvoidingView
-          style={{
-            flex: 3,
-            paddingTop: 32,
-            paddingHorizontal: 25,
-            backgroundColor: 'white',
-            borderTopLeftRadius: 50,
-            borderTopRightRadius: 50,
-          }}>
+        <KeyboardAvoidingView style={styles.formMainContainer}>
           <Formik
             initialValues={loginDetails}
             validationSchema={validationSchema}
@@ -112,7 +84,7 @@ const SignInScreen = () => {
               const {email, password} = values;
               return (
                 <>
-                  <View style={{flex: 1, marginBottom: 25}}>
+                  <ViewVoicera style={styles.formSubContainer}>
                     <FormInputVoicera
                       value={email}
                       placeholder="Enter Email"
@@ -136,97 +108,150 @@ const SignInScreen = () => {
                       onChangeText={handleChange('password')}
                       color={'black'}
                     />
-                    <TouchableOpacity style={{alignItems: 'flex-end'}}>
-                      <Text style={{color: '#424242', textAlign: 'right'}}>
+                    <TouchableOpacity style={styles.forgotPasswordView}>
+                      <TextVoicera style={styles.forgotPasswordText}>
                         Forgot Password?
-                      </Text>
+                      </TextVoicera>
                     </TouchableOpacity>
-                  </View>
-                  <View style={{flex: 1}}>
+                  </ViewVoicera>
+                  <ViewVoicera style={styles.formSecondSubContainer}>
                     <SubmitButtonVoicera
                       label="Login"
                       onPress={handleSubmit}
                       submitting={isSubmitting}
                     />
-                    <Text
-                      style={{
-                        textAlign: 'center',
-                        fontSize: 18,
-                        fontWeight: '600',
-                        marginTop: 10,
-                        color: 'black',
-                      }}>
-                      Or
-                    </Text>
+                    <TextVoicera style={styles.orText}>Or</TextVoicera>
 
-                    <Text
-                      style={{
-                        textAlign: 'center',
-                        fontSize: 16,
-                        fontWeight: '600',
-                        marginVertical: 10,
-                        color: 'grey',
-                      }}>
+                    <TextVoicera style={styles.loginWithText}>
                       Login with
-                    </Text>
-                    <View
-                      style={{
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        flexDirection: 'row',
-                      }}>
-                      <TouchableOpacity
-                        style={{
-                          justifyContent: 'center',
-                          alignItems: 'center',
-                          backgroundColor: '#e0e0de',
-                          width: 50,
-                          height: 50,
-                          borderRadius: 10,
-                          marginHorizontal: 10,
-                        }}>
+                    </TextVoicera>
+                    <ViewVoicera style={styles.googleLogoMainView}>
+                      <TouchableOpacity style={styles.googleViewTouchableView}>
                         <Image
                           source={require('../../../assets/images/google_image.png')}
-                          style={{
-                            width: 30,
-                            height: 30,
-                            resizeMode: 'contain',
-                          }}
+                          style={styles.googleImage}
                         />
                       </TouchableOpacity>
-                    </View>
-                    <View
-                      style={{
-                        justifyContent: 'center',
-                        flexDirection: 'row',
-                        marginTop: 20,
-                      }}>
-                      <Text
-                        style={{
-                          color: '#424242',
-                          fontWeight: '700',
-                          marginRight: 5,
-                        }}>
+                    </ViewVoicera>
+                    <ViewVoicera style={styles.dontHaveAccountView}>
+                      <TextVoicera style={styles.dontHaveAccountText}>
                         Don't have an account?
-                      </Text>
+                      </TextVoicera>
                       <TouchableOpacity
                         onPress={() => navigation.navigate('Signup')}>
-                        <Text style={{color: '#f5cd05', fontWeight: '700'}}>
+                        <TextVoicera style={styles.signUpText}>
                           Sign Up
-                        </Text>
+                        </TextVoicera>
                       </TouchableOpacity>
-                    </View>
-                  </View>
+                    </ViewVoicera>
+                  </ViewVoicera>
                 </>
               );
             }}
           </Formik>
         </KeyboardAvoidingView>
-      </View>
+      </ViewVoicera>
     </KeyboardAwareScrollView>
   );
 };
 
 export default SignInScreen;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  keyboardAwareScrollViewContainer: {
+    flexGrow: 1,
+    justifyContent: 'flex-start',
+  },
+  mainContainer: {flex: 1, backgroundColor: 'blue'},
+  safeAreaViewContainer: {flex: 2, backgroundColor: 'blue'},
+  backButtonContainer: {
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    marginTop: 10,
+  },
+  backButtonSubContainer: {
+    backgroundColor: '#f5cd05',
+    padding: 8,
+    borderBottomLeftRadius: 10,
+    borderTopRightRadius: 10,
+    marginLeft: 10,
+  },
+  imageView: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  image: {
+    width: '90%',
+    height: 220,
+    resizeMode: 'contain',
+  },
+  formMainContainer: {
+    flex: 3,
+    paddingTop: 32,
+    paddingHorizontal: 25,
+    backgroundColor: 'white',
+    borderTopLeftRadius: 50,
+    borderTopRightRadius: 50,
+  },
+  formSubContainer: {
+    flex: 1,
+    marginBottom: 25,
+  },
+  forgotPasswordView: {
+    alignItems: 'flex-end',
+  },
+  forgotPasswordText: {
+    color: '#424242',
+    textAlign: 'right',
+  },
+  formSecondSubContainer: {
+    flex: 1,
+  },
+  orText: {
+    textAlign: 'center',
+    fontSize: 18,
+    fontWeight: '600',
+    marginTop: 10,
+    color: 'black',
+  },
+  loginWithText: {
+    textAlign: 'center',
+    fontSize: 16,
+    fontWeight: '600',
+    marginVertical: 10,
+    color: 'grey',
+  },
+  googleLogoMainView: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'row',
+  },
+  googleViewTouchableView: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#e0e0de',
+    width: 50,
+    height: 50,
+    borderRadius: 10,
+    marginHorizontal: 10,
+  },
+  googleImage: {
+    width: 30,
+    height: 30,
+    resizeMode: 'contain',
+  },
+  dontHaveAccountView: {
+    justifyContent: 'center',
+    flexDirection: 'row',
+    marginTop: 20,
+  },
+  dontHaveAccountText: {
+    color: '#424242',
+    fontWeight: '700',
+    marginRight: 5,
+  },
+  signUpText: {
+    color: '#f5cd05',
+    fontWeight: '700',
+  },
+});

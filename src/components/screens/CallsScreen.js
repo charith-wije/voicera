@@ -1,5 +1,7 @@
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet} from 'react-native';
 import React, {useEffect} from 'react';
+import ViewVoicera from '../atoms/ViewVoicera';
+import TextVoicera from '../atoms/TextVoicera';
 
 const CallsScreen = ({openCallModal}) => {
   useEffect(() => {
@@ -7,9 +9,9 @@ const CallsScreen = ({openCallModal}) => {
   }, []);
 
   return (
-    <View>
-      <Text>CallsScreen</Text>
-    </View>
+    <ViewVoicera>
+      <TextVoicera>CallsScreen</TextVoicera>
+    </ViewVoicera>
   );
 };
 

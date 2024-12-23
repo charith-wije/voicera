@@ -1,17 +1,21 @@
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet} from 'react-native';
 import React from 'react';
 import CallActionBox from '../organism/CallActionBox';
+import ViewVoicera from '../atoms/ViewVoicera';
+import TextVoicera from '../atoms/TextVoicera';
 
 const CallingScreen = () => {
   return (
-    <View style={styles.page}>
-      <View style={styles.cameraPreview}>
-        <Text style={styles.name}>Alex</Text>
-        <Text style={styles.phoneNumber}>ringing +31 234 598 342</Text>
-      </View>
+    <ViewVoicera style={styles.page}>
+      <ViewVoicera style={styles.cameraPreview}>
+        <TextVoicera style={styles.name}>Alex</TextVoicera>
+        <TextVoicera style={styles.phoneNumber}>
+          ringing +31 234 598 342
+        </TextVoicera>
+      </ViewVoicera>
 
       <CallActionBox />
-    </View>
+    </ViewVoicera>
   );
 };
 

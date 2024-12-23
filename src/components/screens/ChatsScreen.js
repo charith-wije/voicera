@@ -1,14 +1,16 @@
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet} from 'react-native';
 import React, {useEffect} from 'react';
+import ViewVoicera from '../atoms/ViewVoicera';
+import TextVoicera from '../atoms/TextVoicera';
 
 const ChatsScreen = ({openCallModal}) => {
   useEffect(() => {
     openCallModal(true);
   }, []);
   return (
-    <View>
-      <Text>ChatsScreen</Text>
-    </View>
+    <ViewVoicera>
+      <TextVoicera>ChatsScreen</TextVoicera>
+    </ViewVoicera>
   );
 };
 
