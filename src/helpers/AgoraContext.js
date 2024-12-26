@@ -174,6 +174,7 @@ const AgoraProvider = ({children}) => {
       await PermissionsAndroid.requestMultiple([
         PermissionsAndroid.PERMISSIONS.RECORD_AUDIO,
         PermissionsAndroid.PERMISSIONS.CAMERA,
+        PermissionsAndroid.PERMISSIONS.POST_NOTIFICATIONS,
       ]);
     }
   };

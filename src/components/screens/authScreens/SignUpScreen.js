@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   Image,
   KeyboardAvoidingView,
@@ -14,9 +14,11 @@ import {useNavigation} from '@react-navigation/native';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import FormInputVoicera from '../../molecules/FormInputVoicera';
 import SubmitButtonVoicera from '../../molecules/SubmitButtonVoicera';
-import auth from '@react-native-firebase/auth';
 import ViewVoicera from '../../atoms/ViewVoicera';
 import TextVoicera from '../../atoms/TextVoicera';
+import auth from '@react-native-firebase/auth';
+import firestore from '@react-native-firebase/firestore';
+import messaging from '@react-native-firebase/messaging';
 
 const userInfo = {
   userName: '',
@@ -27,6 +29,11 @@ const userInfo = {
 
 const SignUpScreen = () => {
   const navigation = useNavigation();
+  const [fcmToken, setFcmToken] = useState(null);
+
+  useEffect(() => {
+    checkToken();
+  }, []);
 
   const validationSchema = Yup.object({
     userName: Yup.string()
@@ -46,17 +53,53 @@ const SignUpScreen = () => {
       .required('Confirm password is required!'),
   });
 
-  const handleRegister = async values => {
-    auth()
-      .createUserWithEmailAndPassword('test@gmail.com', 'Password')
-      .then(() => {
-        // Alert.alert('User created');
-      })
-      .catch(err => {
-        console.log(err);
-      });
+  const checkToken = async () => {
+    const fcmToken = await messaging().getToken();
+    if (fcmToken) {
+      setFcmToken(fcmToken);
+    }
   };
 
+  const updateUserName = async (name, email) => {
+    const user = auth().currentUser; // Get the current user
+
+    if (user) {
+      try {
+        // Update the user profile with the new display name
+        await user.updateProfile({displayName: name});
+        console.log(auth().currentUser);
+        console.log('Profile updated successfully');
+        await firestore()
+          .collection('users')
+          .add({
+            name,
+            email,
+            fcmToken,
+          })
+          .then(() => {
+            console.log('User added!');
+            navigation.navigate('Signin');
+          });
+      } catch (err) {
+        console.error('Profile update failed:', err.message);
+      }
+    } else {
+      console.error('No user is logged in');
+    }
+  };
+
+  const handleRegister = async values => {
+    console.log('hi');
+    auth()
+      .createUserWithEmailAndPassword(values.email, values.password)
+      .then(userCredential => {
+        const user = userCredential.user;
+        updateUserName(values.userName, values.email);
+      })
+      .catch(err => {
+        console.log(err.message);
+      });
+  };
   return (
     <KeyboardAwareScrollView
       contentContainerStyle={styles.keyboardAwareScrollViewContainer}
@@ -86,11 +129,11 @@ const SignUpScreen = () => {
               validationSchema={validationSchema}
               onSubmit={(values, formikActions) => {
                 setTimeout(() => {
-                  console.log(values);
+                  // console.log(values);
                   formikActions.resetForm();
                   formikActions.setSubmitting(false);
                   handleRegister(values);
-                }, 3000);
+                }, 500);
               }}>
               {({
                 values,
@@ -172,7 +215,9 @@ const SignUpScreen = () => {
               Sign Up with
             </TextVoicera>
             <ViewVoicera style={styles.googleLogoMainView}>
-              <TouchableOpacity style={styles.googleViewTouchableView}>
+              <TouchableOpacity
+                onPress={checkToken}
+                style={styles.googleViewTouchableView}>
                 <Image
                   source={require('../../../assets/images/google_image.png')}
                   style={styles.googleImage}

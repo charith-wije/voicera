@@ -5,7 +5,7 @@ import TextVoicera from '../atoms/TextVoicera';
 
 const CallsScreen = ({openCallModal}) => {
   useEffect(() => {
-    openCallModal(true);
+    // openCallModal(true);
   }, []);
 
   return (

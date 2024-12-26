@@ -10,12 +10,14 @@ import * as Yup from 'yup';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {useNavigation} from '@react-navigation/native';
-
+import auth from '@react-native-firebase/auth';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import SubmitButtonVoicera from '../../molecules/SubmitButtonVoicera';
 import FormInputVoicera from '../../molecules/FormInputVoicera';
 import ViewVoicera from '../../atoms/ViewVoicera';
 import TextVoicera from '../../atoms/TextVoicera';
+import {useDispatch} from 'react-redux';
+import {updateIsLogged} from '../../../redux/reducers/UserReducer';
 
 const loginDetails = {
   email: '',
@@ -24,6 +26,7 @@ const loginDetails = {
 
 const SignInScreen = () => {
   const navigation = useNavigation();
+  const dispatch = useDispatch();
 
   const validationSchema = Yup.object({
     email: Yup.string()
@@ -36,7 +39,13 @@ const SignInScreen = () => {
       .required('password is required!'),
   });
 
-  const handleLogin = async values => {};
+  const handleLogin = async values => {
+    auth()
+      .signInWithEmailAndPassword(values.email, values.password)
+      .then(res => {
+        dispatch(updateIsLogged(true));
+      });
+  };
 
   return (
     <KeyboardAwareScrollView

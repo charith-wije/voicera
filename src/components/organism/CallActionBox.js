@@ -38,13 +38,13 @@ const CallActionBox = ({leaveCall, callType}) => {
     <View style={styles.buttonsContainer}>
       <Pressable
         onPress={onReverseCamera}
-        style={[styles.iconButton, {opacity: callType === 'video' ? 1 : 0.5}]}>
+        style={[styles.iconButton, {opacity: callType === 'video' ? 1 : 0.4}]}>
         <Ionicons name="camera-reverse" size={38} color={'white'} />
       </Pressable>
 
       <Pressable
         onPress={onToggleCamera}
-        style={[styles.iconButton, {opacity: callType === 'video' ? 1 : 0.5}]}>
+        style={[styles.iconButton, {opacity: callType === 'video' ? 1 : 0.4}]}>
         <MaterialIcons
           name={isCameraOn ? 'camera' : 'camera-off'}
           size={38}

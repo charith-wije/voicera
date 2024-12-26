@@ -22,6 +22,7 @@ const chatsName = 'Chats';
 const HomeNavigator = () => {
   const [isCallModalVisible, setCallModalVisible] = useState(false);
   const [callee, setCallee] = useState('');
+  const [call, setCall] = useState('');
 
   const dispatch = useDispatch();
 
@@ -61,6 +62,7 @@ const HomeNavigator = () => {
             <MembersScreen
               openCallModal={openCallModal}
               setCallee={setCallee}
+              setCall={setCall}
             />
           )}
         </BottomTab.Screen>
@@ -81,6 +83,7 @@ const HomeNavigator = () => {
         visible={isCallModalVisible}
         onClose={closeCallModal}
         callee={callee}
+        call={call}
       />
     </>
   );

@@ -7,7 +7,7 @@ import {AgoraContext} from '../../helpers/AgoraContext';
 import {RtcSurfaceView} from 'react-native-agora';
 import {useSelector} from 'react-redux';
 
-const CallModal = ({visible, onClose, callee = '0'}) => {
+const CallModal = ({visible, onClose, callee = '0', call = 'Voice'}) => {
   const [muteAudioRemoteUser, setAudioMuteRemoteUser] = useState(false);
   const [muteVideoRemoteUser, setVideoMuteRemoteUser] = useState(false);
 
@@ -56,7 +56,13 @@ const CallModal = ({visible, onClose, callee = '0'}) => {
                 <RtcSurfaceView canvas={{uid: remoteUid}} style={{flex: 1}} />
               )}
               {callType === 'audio' && (
-                <View style={{flex: 1, backgroundColor: 'black'}} />
+                <View style={styles.page}>
+                  <View style={styles.cameraPreview}>
+                    <Text style={styles.name}>{callee}</Text>
+                    <Text style={styles.phoneNumber}>{`${call} call...`}</Text>
+                    <Text style={styles.phoneNumber}>Joined</Text>
+                  </View>
+                </View>
               )}
               <View style={styles.remoteUserAudioVideoStatus}>
                 {callType === 'video' && (
@@ -79,7 +85,12 @@ const CallModal = ({visible, onClose, callee = '0'}) => {
               <RtcSurfaceView canvas={{uid: 0}} style={{flex: 1}} />
             )}
             {isJoined && callType === 'audio' && (
-              <View style={{flex: 1, backgroundColor: 'black'}} />
+              <View style={styles.page}>
+                <View style={styles.cameraPreview}>
+                  <Text style={styles.name}>{callee}</Text>
+                  <Text style={styles.phoneNumber}>{`${call} call`}</Text>
+                </View>
+              </View>
             )}
           </View>
 
@@ -90,9 +101,8 @@ const CallModal = ({visible, onClose, callee = '0'}) => {
         <View style={styles.page}>
           <View style={styles.cameraPreview}>
             <Text style={styles.name}>{callee}</Text>
-            <Text style={styles.phoneNumber}>Video Call...</Text>
+            <Text style={styles.phoneNumber}>{`${call} call...`}</Text>
           </View>
-          <Button title="Close" onPress={onClose} />
 
           <CallActionBox leaveCall={onDecline} />
         </View>

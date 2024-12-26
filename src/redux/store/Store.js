@@ -1,10 +1,12 @@
 import {configureStore} from '@reduxjs/toolkit';
 import callModalReducer from '../reducers/CallModalReducer';
-import registeredUserReducer from '../reducers/registerReducer';
+import isLoggedReducer from '../reducers/UserReducer';
+// import registereUser from '../reducers/registerReducer';
 
 export const store = configureStore({
   reducer: {
     callModal: callModalReducer,
-    registeredUser: registeredUserReducer,
+    isLogged: isLoggedReducer,
+    //   registeredUser: registereUser,
   },
 });
